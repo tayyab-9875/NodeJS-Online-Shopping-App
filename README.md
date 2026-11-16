@@ -39,6 +39,30 @@ To remove the containers and all persisted Docker data:
 docker compose down -v
 ```
 
+### Using MongoDB Atlas
+
+The application can use MongoDB Atlas instead of the MongoDB container. First,
+copy `.env.example` to `.env` and replace
+`YOUR_URL_ENCODED_PASSWORD` with the Atlas database user's password. URL-encode
+special password characters such as `@`, `:`, `/`, `?`, and `#`.
+
+In MongoDB Atlas, add your current IP address under **Network Access** and
+ensure the database user has read/write access. Then start the application:
+
+```bash
+docker compose up --build
+```
+
+Compose passes `MONGO_URI` from `.env` to the app. If `.env` is absent, it
+uses the local MongoDB container shown above.
+
+To run the Node.js app directly on the host with Atlas:
+
+```bash
+export MONGO_URI='mongodb+srv://mtayyab9875_db_user:YOUR_URL_ENCODED_PASSWORD@cluster0.lfwoqpi.mongodb.net/norder?retryWrites=true&w=majority'
+npm start
+```
+
 ## Application
 
 ### Signup
